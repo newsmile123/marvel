@@ -7,10 +7,10 @@ import mjolnir from '../../resources/img/mjolnir.png';
 
 
 class RandomChar extends Component{
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-    };
+    // };
     state = {
         char: {},
         loading: true,
@@ -42,12 +42,25 @@ class RandomChar extends Component{
         this.updateChar();
     }
 
-   
+    loadingForRandom = () => {
+        this.setState({
+            loading: true
+        })
+    }
 
     handleUpdate = () => {
-        this.updateChar()
+        this.loadingForRandom();
+        this.forUpdateRandom()
+        console.log('update')
     }
     
+    forUpdateRandom = () => {
+        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+       this.marvelService
+            .getCharacters(id)
+            .then(this.onChatLoaded)
+            .catch(this.onError)
+    }
 
     
 
